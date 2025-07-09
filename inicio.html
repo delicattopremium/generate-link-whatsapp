@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Link WhatsApp | Como Criar Link para WhatsApp com Seu Nome</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        
+        input,
+        textarea,
+        button {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        
+        a {
+            font-size: 18px;
+            color: green;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Gerador de Link WhatsApp</h1>
+    <p>Como fazer link do WhatsApp com seu nome? Use esta ferramenta simples para gerar links prontos com ou sem mensagem.</p>
+
+    <label for="telefone">Telefone (com DDI, sem traços — ex: +55 21 99999-9999)</label>
+    <input type="text" id="telefone" placeholder="Ex: +55 21 99999-9999" />
+
+    <label for="mensagem">Mensagem (opcional)</label>
+    <textarea id="mensagem" rows="6" placeholder="Digite sua mensagem aqui (opcional)..."></textarea>
+
+    <button onclick="gerarLink()">Gerar Link</button>
+
+    <p><strong>Link gerado:</strong></p>
+    <a id="linkGerado" href="#" target="_blank"></a>
+
+    <script>
+        function gerarLink() {
+            let telefone = document.getElementById('telefone').value.trim();
+            const mensagem = document.getElementById('mensagem').value.trim();
+
+            // Remove tudo que não for número
+            telefone = telefone.replace(/\D/g, '');
+
+            // Validação básica do número
+            if (!telefone || telefone.length < 10 || telefone.length > 15) {
+                alert("Por favor, insira um número de telefone válido com DDI (entre 10 e 15 dígitos).");
+                return;
+            }
+
+            let link = `https://wa.me/${telefone}`;
+
+            if (mensagem !== "") {
+                const mensagemCodificada = encodeURIComponent(mensagem);
+                link += `?text=${mensagemCodificada}`;
+            }
+
+            const linkElemento = document.getElementById('linkGerado');
+            linkElemento.href = link;
+            linkElemento.textContent = link;
+        }
+    </script>
+
+</body>
+
+</html>
